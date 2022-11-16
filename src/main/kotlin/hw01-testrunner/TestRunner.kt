@@ -8,16 +8,16 @@ class TestRunnerImpl : TestRunner {
     override fun <T> runTest(steps: T, test: () -> Unit) {
         val beforeMethods = steps!!::class.members.filter { it.name.contains("before") }
 
-        for (i in 0..beforeMethods.size - 1) {
-            beforeMethods.get(i).call(steps)
+        for (i in beforeMethods.indices) {
+            beforeMethods[i].call(steps)
         }
 
         test()
 
         val afterMethods = steps!!::class.members.filter { it.name.contains("after") }
 
-        for (i in 0..afterMethods.size - 1) {
-            afterMethods.get(i).call(steps)
+        for (i in afterMethods.indices) {
+            afterMethods[i].call(steps)
         }
     }
 }
